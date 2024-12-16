@@ -9,20 +9,21 @@ haveFrame,bg = cap.read()
 while(cap.isOpened()):
     haveFrame,im = cap.read()
 
-    if (not haveFrame) or (cv2.waitKey(1) & 0xFF == ord('q')):
+    if (not haveFrame) or (cv2.waitKey(10) & 0xFF == ord('q')):
         break
 
     diffc = cv2.absdiff(im,bg)
     diffg = cv2.cvtColor(diffc,cv2.COLOR_BGR2GRAY)
     bwmask = cv2.inRange(diffg,50,255)
 
-    bwmask_median = cv2.medianBlur(bwmask,5)
+    bwmask_median = cv2.medianBlur(bwmask,5) # ? Median Blur
 
-    contours,hierarchy = cv2.findContours(bwmask_median, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) #for opencv 4.x.x
+    # ? OpenCV Use Border Following
+    contours,hierarchy = cv2.findContours(bwmask_median, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) #for opencv 4.x.x # ? Blob detection
     #contourmask,contours,hierarchy = cv2.findContours(bwmask_median, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) #for opencv 3.2.x 3.4.x
     #contourmask,contours,hierarchy = cv2.findContours(bwmask_median.copy(), cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE) #for opencv 3.1.x
 
-    im_out_contour = im.copy()
+    im_out_contour = im.copy() # ! if im2 = im1 when edit im2 also it edited im1
     cv2.drawContours(im_out_contour, contours, -1, (0, 255, 0), 1)
 
     im_out_boundingbox = im.copy()

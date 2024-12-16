@@ -4,17 +4,21 @@ import cv2
 
 cap = cv2.VideoCapture('ExampleBGSubtraction.avi')
 
-haveFrame,bg = cap.read()
+haveFrame,bg = cap.read() # ? First frame is background
 
 while(cap.isOpened()):
     haveFrame,im = cap.read()
 
-    if (not haveFrame) or (cv2.waitKey(1) & 0xFF == ord('q')):
+    if (not haveFrame) or (cv2.waitKey(10) & 0xFF == ord('q')):
         break
 
-    diffc = cv2.absdiff(im,bg)
-    diffg = cv2.cvtColor(diffc,cv2.COLOR_BGR2GRAY)
-    bwmask = cv2.inRange(diffg,50,255)
+    diffc = cv2.absdiff(im,bg) # ? background subtraction ( im<uint8> - bg<uint8> ) [cv2.adsdiff(im1, im2) is abs difference]
+    diffg = cv2.cvtColor(diffc,cv2.COLOR_BGR2GRAY) # ? convert to grayscale
+    bwmask = cv2.inRange(diffg,50,255) # ? threshold
+    
+    print(f"diffc : {diffc.shape}")
+    print(f"diffg : {diffg.shape}")
+    print(f"bwmask : {bwmask.shape}")
 
     cv2.imshow('diffc', diffc)
     cv2.moveWindow('diffc',10,10)

@@ -19,8 +19,8 @@ def coinCounting(filename):
     yellow = len(contours_yellow)
     blue = len(contours_blue)
 
-    #print('Yellow = ',yellow)
-    #print('Blue = ', blue)
+    # print('Yellow = ',yellow)
+    # print('Blue = ', blue)
 
     #cv2.imshow('Original Image',im)
     #cv2.imshow('Yellow Coin', mask_yellow)

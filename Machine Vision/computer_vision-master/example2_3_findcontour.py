@@ -12,22 +12,22 @@ cv2.fillPoly(im,polygons,colors)
 im[250:340,250:340] = 0
 im[270:300,290:320] = 255
 
-contours,hierarchy = cv2.findContours(im, cv2.RETR_TREE, cv2.CHAIN_APPROX_NONE)
+contours,hierarchy = cv2.findContours(im, cv2.RETR_TREE, cv2.CHAIN_APPROX_SIMPLE) # ? cv2.findContours(img, format, type_collect_pixel)
 #try mode cv2.RETR_EXTERNAL and cv2.RETR_TREE
-#try method cv2.CHAIN_APPROX_NONE and cv2.CHAIN_APPROX_SIMPLE
+#try method cv2.CHAIN_APPROX_NONE and cv2.CHAIN_APPROX_SIMPLE # ? None collect <all> pixels to draw contours / Simple collect <minimum> pixels to draw contours
 
 
 print('Types of contours:', type(contours))
 print('Length of contours:', len(contours))
 
-n = 0
+n = 3
 print('Types of each contour:', type(contours[n]))
-print('Shape of each contour:', contours[n].shape)
-print('Each contour value (list of points):\n',contours[n])
+print('Shape of each contour:', contours[n].shape) # ? (number of pixels, cordinate (x, y))
+print('Each contour value (list of points):\n',contours[n]) # ! (col, row)
 
 out = np.zeros(shape =(400,400)).astype('uint8')
 for pos in contours[n]:
-    out[pos[0,1],pos[0,0]] = 255
+    out[pos[0,1],pos[0,0]] = 255 # ! img[row, col]
 
 
 #print('Hierarchy:\n', 'Left Right Child Parent\n', hierarchy)

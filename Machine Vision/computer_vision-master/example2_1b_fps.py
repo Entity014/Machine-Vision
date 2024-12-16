@@ -9,7 +9,7 @@ print(fps) ###################
 while(cap.isOpened()):
     haveFrame, im = cap.read()
 
-    if (not haveFrame) or (cv2.waitKey(int(1000/fps)) & 0xFF == ord('q')): #######
+    if (not haveFrame) or (cv2.waitKey(int(1000/fps)) & 0xFF == ord('q')): #######  # ? 1000 is ms
         break
 
     cv2.imshow('video',im)
