@@ -24,10 +24,15 @@ for im_id in range(1, 4):
         h_nonskin_all = h_nonskin
         s_nonskin_all = s_nonskin
     else:
-        h_skin_all = np.concatenate((h_skin_all, h_skin))
+        h_skin_all = np.concatenate((h_skin_all, h_skin)) # np.concatenate เหมือนกับ append
         s_skin_all = np.concatenate((s_skin_all, s_skin))
         h_nonskin_all = np.concatenate((h_nonskin_all, h_nonskin))
         s_nonskin_all = np.concatenate((s_nonskin_all, s_nonskin))
+
+# print(f"H skin : {h_skin_all.shape}")
+# print(f"S skin : {s_skin_all.shape}")
+# print(f"H nonskin : {h_nonskin_all.shape}")
+# print(f"S nonskin : {s_nonskin_all.shape}")
 
 plt.figure(0)
 plt.plot(h_nonskin_all, s_nonskin_all, 'b.')

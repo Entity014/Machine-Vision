@@ -20,19 +20,22 @@ while True:
     ##################################################
 
     ############ Blurred ############################
-    L = 25
-    kernel = np.ones((L, L), np.float32) / L / L
+    kernel = np.zeros((3, 3), np.float32)
+    kernel[:, 1] = 0.05
+    kernel[1, :] = 0.05
+    kernel[1, 1] = 0.8
+    print(kernel)
     im_blurred = cv2.filter2D(im_flipped, -1, kernel)
     ##################################################
 
     ############ Median Filter #######################
-    L = 25
-    im_median = cv2.medianBlur(im_flipped, L)
+    # L = 25
+    # im_median = cv2.medianBlur(im_flipped, L)
     ##################################################
 
     cv2.imshow("original", im)
     cv2.imshow(
-        "modified", im_median
+        "modified", im_blurred
     )  # Change variable name for displaying another images
 
     if cv2.waitKey(1) & 0xFF == ord("q"):

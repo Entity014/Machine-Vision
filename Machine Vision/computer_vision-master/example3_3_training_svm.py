@@ -29,14 +29,16 @@ for im_id in range(1,4):
         h_nonskin_all = np.concatenate((h_nonskin_all,h_nonskin))
         s_nonskin_all = np.concatenate((s_nonskin_all,s_nonskin))
 
-labels = np.zeros((len(h_skin_all)+len(h_nonskin_all),1))
+# ? LABEL
+labels = np.zeros((len(h_skin_all)+len(h_nonskin_all),1)) # [0 : noneskin, 1 : skin], shape = number of pixels
 labels[0:len(h_skin_all)] = 1
 
 
 print('------------------------ Training ----------------------------')
 print("label's shape: ", labels.shape)
 
-features = np.zeros((len(h_skin_all)+len(h_nonskin_all),2))
+# ? FEATURES EXTERUATION
+features = np.zeros((len(h_skin_all)+len(h_nonskin_all),2)) # [h s], shape = number of pixels
 features[:,0] = np.concatenate((h_skin_all,h_nonskin_all))
 features[:,1] = np.concatenate((s_skin_all,s_nonskin_all))
 
@@ -44,8 +46,8 @@ print("features's shape: ", features.shape)
 
 svm = cv2.ml.SVM_create()
 svm.setKernel(cv2.ml.SVM_LINEAR)
-#svm.setKernel(cv2.ml.SVM_POLY)
-#svm.setDegree(10)
+# svm.setKernel(cv2.ml.SVM_POLY)
+# svm.setDegree(10) # ? Order of polynomial
 #svm.setKernel(cv2.ml.SVM_RBF)
 #svm.setGamma(0.01)
 svm.train(features.astype(np.float32), cv2.ml.ROW_SAMPLE, labels.astype(np.int32))
@@ -55,8 +57,8 @@ test_pixels = np.array([[10,100],
                         [100,150]])
 responses = svm.predict(test_pixels.astype(np.float32))
 
-print(responses)
-#print(responses[1])
+# print(responses)
+print(responses[1]) # ? Class ที่ prediction
 
 
 print('-----------------Classify all training pixels---------------------')

@@ -3,16 +3,16 @@ from matplotlib import pyplot as plt
 
 # Download files from https://drive.google.com/file/d/1XdZLvORnCnfpyBYflh15I58VQrQdVlUe/view?usp=sharing
 
-h_skin_hist = 0
-h_nonskin_hist = 0
-s_skin_hist = 0
-s_nonskin_hist = 0
+h_skin_hist = 0 # N(h|skin)
+h_nonskin_hist = 0 # N(h|nonskin)
+s_skin_hist = 0 # N(s|skin)
+s_nonskin_hist = 0 # N(s|nonskin)
 for im_id in range(1, 4):
     print(im_id)
     im = cv2.imread("SkinDetection\SkinTrain" + str(im_id) + ".jpg")
     mask = cv2.imread("SkinDetection\SkinTrain" + str(im_id) + "_mask.jpg", 0)
     im_hsv = cv2.cvtColor(im, cv2.COLOR_BGR2HSV)
-    h_skin_hist = h_skin_hist + cv2.calcHist([im_hsv], [0], mask, [256], [0, 256])
+    h_skin_hist = h_skin_hist + cv2.calcHist([im_hsv], [0], mask, [256], [0, 256]) # ? cv2.calcHist(image, layer [0->H, 1->S, 2->V], mask, bin, range_color(0, 255))
     h_nonskin_hist = h_nonskin_hist + cv2.calcHist([im_hsv], [0], 255 - mask, [256], [0, 256])
     s_skin_hist = s_skin_hist + cv2.calcHist([im_hsv], [1], mask, [256], [0, 256])
     s_nonskin_hist = s_nonskin_hist + cv2.calcHist([im_hsv], [1], 255 - mask, [256], [0, 256])
@@ -28,4 +28,5 @@ plt.legend()
 plt.figure()
 plt.plot(s_skin_prob, 'r', label = 'P(s|skin)')
 plt.plot(s_nonskin_prob, 'b', label = 'P(s|non-skin)')
+plt.legend()
 plt.show()
