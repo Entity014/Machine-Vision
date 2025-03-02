@@ -28,7 +28,7 @@ model.compile(optimizer="adam", loss="categorical_crossentropy", metrics=["accur
 model.summary()
 
 
-# Read data from file (download form https://drive.google.com/file/d/1UACFvQ8QCFUQaBWz9umQxbUWLSQlh1co/view?usp=sharing)
+# Read data from file (download form https://drive.google.com/drive/folders/1YfdtWbsh9FRlyZwW5hNvmTb-jEDlhtCY?usp=sharing)
 N = 30
 x_train = np.zeros((N, 50, 50, 1), "float")  # ? Grayscale
 y_train = np.zeros((N), "float")
